@@ -30,7 +30,8 @@ def parse_option():
     parser.add_argument('--num_workers', type=int, default=8, help='num of workers to use')
     parser.add_argument('--epochs', type=int, default=240, help='number of training epochs')
     parser.add_argument('--gpu_id', type=str, default='0', help='id(s) for CUDA_VISIBLE_DEVICES')
-    
+    parser.add_argument('--save_model',type=int, default=1,help='save the model')
+
     parser.add_argument('--experiments_dir', type=str, default='models',help='Directory name to save the model, log, config')
     parser.add_argument('--experiments_name', type=str, default='baseline')
 
@@ -57,6 +58,7 @@ def parse_option():
                          'multi node data parallel training')
     parser.add_argument('--dist-url', default='tcp://127.0.0.1:23451', type=str,
                     help='url used to set up distributed training')
+
     
     opt = parser.parse_args()
 
@@ -201,6 +203,6 @@ def main_worker(gpu, ngpus_per_node, opt):
                     'test_acc_top5': test_acc_top5,
                     'epoch': epoch}    
             save_dict_to_json(test_merics, os.path.join(opt.save_folder, "test_best_metrics.json"))
-            
+    torch.save(model.state_dict(),opt.model_path+'/'+opt.experiments_dir+'/teacher.pth')
 if __name__ == '__main__':
     main()

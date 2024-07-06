@@ -67,7 +67,8 @@ def train_vanilla(epoch, train_loader, model, criterion, optimizer, opt):
                    epoch, idx, n_batch, opt.gpu, batch_time=batch_time,
                    data_time=data_time, loss=losses, top1=top1, top5=top5))
             sys.stdout.flush()
-            
+
+
     return top1.avg, top5.avg, losses.avg
 
 def train_distill(epoch, train_loader, module_list, mlp_net, cos_value, criterion_list, optimizer, opt):
