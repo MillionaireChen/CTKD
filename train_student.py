@@ -182,7 +182,8 @@ def load_teacher(model_path, n_cls, gpu=None, opt=None):
     print('==> done')
     return model
 
-
+#用于调节损失，它用于控制知识蒸馏过程中教师与学生输出间损失函数的重要性或权重，
+# 通常与动态温度参数τ一起调整，以实施从简到繁的学习策略。
 class CosineDecay(object):
     def __init__(self,
                 max_value,
